@@ -8,6 +8,13 @@
 </head>
 
 <body>
-    <h1>Listas de clientes</h1>
+    </h1>>Listas de clientes</h1>
+    <ul>
+        {% for cliente in clientes %}
+            <li>
+                {{cliente.nome}}-{{cliente.cartao}}  
+            </li>
+        {% endfor %}
+    </ul>
 </body>
 </html>

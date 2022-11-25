@@ -1,3 +1,4 @@
-from .cliente import cliente
+from .cliente import Cliente
+from .contato import Contato
 
-__all__= ["cliente"]
+__all__= ["Cliente", "Contato"]

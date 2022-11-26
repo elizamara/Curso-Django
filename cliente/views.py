@@ -5,14 +5,16 @@ from django.shortcuts import render, get_list_or_404
 from cliente.models import Cliente
 
 # Create your views here.
-def index(request):
-    return HttpResponse("Hello, wolrd!!!!!")
+def Index(request):
+    tf request.method == "POST":
+    nome = request.POST["nome"]
+    return render(request, "index.html")
 
 
-def lista(request):
+def Lista(request):
     clientes =  Cliente.objects.all()
 
-def listas(request):
+def Listas(request):
     clientes: list[dict] = [
         {"nome": "Eliza", "Carta0": "0000 eeee EEEE 0000"},
         {"nome": "Kaka", "Carta0": "0000 eeee EEEE 0000"},
@@ -22,7 +24,7 @@ def listas(request):
     return render(request,"lista.html",context={"clientes": clientes})
 
 
-def detalhe(request, id):
+def Detalhe(request, id):
     cliente = Cliente.objects.get(pk=id)
     # cliente = get_list_or_404(Cliente, id=id)
     return render(request, "detalhe.html", context={"cliente": cliente})

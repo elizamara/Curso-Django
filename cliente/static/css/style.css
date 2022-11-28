@@ -1,0 +1,15 @@
+ul {
+    display: flex;
+    flex-direction: row;
+}
+
+ul li {
+    margin: 20px;
+    list-style-type: none;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}

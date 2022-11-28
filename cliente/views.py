@@ -1,30 +1,36 @@
-from django.shortcuts import render
 from django.http import HttpResponse
-from django.shortcuts import render, get_list_or_404
+from django.shortcuts import render, get_list_or_404, redirect
 
 from cliente.models import Cliente
 
 # Create your views here.
-def Index(request):
-    tf request.method == "POST":
-    nome = request.POST["nome"]
-    return render(request, "index.html")
+def index(request):
+    if request.method == "POST":
+        nome = request.POST["nome"]
+        cpf_cnpj = request.POST["cpf"]
+        tipo = request.POST["tipo"]
+
+        cliente = {
+            "nome": nome,
+            "cpf" : cpf_cnpj,
+            "tipo": tipo
+        }
+        
+        return redirect(to="cliente.list", context={"cliente": cliente })
+    else:
+        return render(request, "index.html")
 
 
-def Lista(request):
+def lista(request):
     clientes =  Cliente.objects.all()
-
-def Listas(request):
-    clientes: list[dict] = [
-        {"nome": "Eliza", "Carta0": "0000 eeee EEEE 0000"},
-        {"nome": "Kaka", "Carta0": "0000 eeee EEEE 0000"},
-    ]
-    # if id:
-    #     return render(request,"lista.html",context={"clientes": clientes})
-    return render(request,"lista.html",context={"clientes": clientes})
+    return render(request, "lista.html", context={"clientes":clientes, "titulo":"Lista de clientes"})
 
 
-def Detalhe(request, id):
-    cliente = Cliente.objects.get(pk=id)
-    # cliente = get_list_or_404(Cliente, id=id)
+def detalhe(request, id):
+    # cliente = Cliente.objects.get(pk=id)
+    cliente = get_list_or_404(Cliente, id=id)
     return render(request, "detalhe.html", context={"cliente": cliente})
+
+
+def contato(request):
+    return render(request, "contatos.html")

@@ -10,7 +10,7 @@ class ClienteAdmin(admin.ModelAdmin):
 
 class ContatoAdmin(admin.ModelAdmin):
     list_display=["id", "tipo", "cliente"]
-    list_display_links = ["id", "tipo", "cliente"]
+    list_display_links = ["id", "tipo"]
     search_fields= ["email", "telefone"]
     list_per_page: 20
 

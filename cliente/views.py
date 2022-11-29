@@ -1,28 +1,39 @@
-from django.http import HttpResponse
+from django.views import View
+# from django.views.generic import 
 from django.shortcuts import render, get_list_or_404, redirect
 
+
+from .forms import ClienteForm
 from cliente.models import Cliente
 
 # Create your views here.
-def index(request):
-    if request.method == "POST":
-        nome = request.POST["nome"]
-        cpf_cnpj = request.POST["cpf"]
-        tipo = request.POST["tipo"]
 
-        cliente = {
-            "nome": nome,
-            "cpf" : cpf_cnpj,
-            "tipo": tipo
-        }
-        
-        return redirect(to="cliente.list", context={"cliente": cliente })
-    else:
-        return render(request, "index.html")
+class Index(View):
+    def get(self, request):
+        form = ClienteForm()
+        clientes =  Cliente.objects.all()
+        return render 
+
+
+
+def index(request):
+    clientes =  Cliente.objects.all() 
+    form =  ClienteForm()
+    clientes =  Cliente.objects.all()
+
+    if request.method == "POST":
+        form= ClienteForm(request, POST)
+
+        if form.is_valid():
+            form.save()
+
+        return redirect(to="cliente:index")
+
+    return render(request,"index.html", context={"cliente": clientes })
+ 
 
 
 def lista(request):
-    clientes =  Cliente.objects.all()
     return render(request, "lista.html", context={"clientes":clientes, "titulo":"Lista de clientes"})
 
 

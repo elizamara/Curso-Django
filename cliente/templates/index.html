@@ -3,21 +3,25 @@
 {% block content %}
 {% include 'partials/_menu.html'%}
 
-    <h1> Arquivos estaticos </h1>
 
-    <a href="{% url 'cliente:lista' %}"> home</a>
-    <form action=" {% url  'cliente:index'%} ">
-        <label for="nome" > Nome</label>
-        <input type="text" placeholder="Nome" name="nome" id="nome">
-        <label for="cpf_cnpj">CPF/CNPJ</label>
-        <input type="text" name="cpf" id="cpf" placeholder="000.000.000-00">
-        <label for="tipo" >Tipo</label>
-        <select name="tipo" id="tipo">
-            <option selected> Escolha uma opção</option>
-            <option selected value="F"> Física</option>
-            <option selected value="J"> Jurídica</option>
+<div class="container mx-auto">
+    <ul>
+        {% for cliente in cliente  %}
+        <li>Nome:{{cliente.nome}} </li>
 
-        </select>
-        <input type="submit" value="Enviar">
+        <li>CPF/CNPJ:{{cliente.cpf_cnpj}} </CNPJ></li>
+        {%endfor%}
+    </ul>
+    <form action="{ % url 'cliente:index'%} " method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="fieldWrapper">
+                {{ field.errors }}
+                {{ field.label_tag }} {{ field }}
+            </div>
+        {% endfor %}
+        <button> Enviar dados</button>
     </form>
+</div>
+
 {%endblock%}
